@@ -1,0 +1,89 @@
+basePath: /firstgoa
+consumes:
+- application/json
+definitions:
+  message:
+    description: 'message of user to send '
+    example:
+      info:
+        content: Repellat reiciendis iusto.
+        sendTime: 2014-01-05T04:06:32+08:00
+      user: Velit qui iusto consequatur assumenda.
+    properties:
+      info:
+        example:
+          content: Repellat reiciendis iusto.
+          sendTime: 2014-01-05T04:06:32+08:00
+        properties:
+          content:
+            description: content of message
+            example: Repellat reiciendis iusto.
+            type: string
+          sendTime:
+            description: user send message time
+            example: 2014-01-05T04:06:32+08:00
+            format: date-time
+            type: string
+        type: object
+      user:
+        example: Velit qui iusto consequatur assumenda.
+        type: string
+    required:
+    - info
+    title: message
+    type: object
+host: 193.168.1.32:8081
+info:
+  description: API about goa example
+  title: FirstGoa
+  version: ""
+paths:
+  /answer:
+    post:
+      description: answer words and show in response
+      operationId: hello#answer
+      parameters:
+      - description: 'message of user to send '
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/message'
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+      schemes:
+      - http
+      summary: answer hello
+      tags:
+      - hello
+  /say/{words}:
+    get:
+      description: say words and show in response
+      operationId: hello#say
+      parameters:
+      - description: say words
+        in: path
+        name: words
+        required: true
+        type: string
+      produces:
+      - plain/text
+      responses:
+        "200":
+          description: OK
+      schemes:
+      - http
+      summary: say hello
+      tags:
+      - hello
+produces:
+- application/json
+responses:
+  OK:
+    description: OK
+schemes:
+- http
+swagger: "2.0"
