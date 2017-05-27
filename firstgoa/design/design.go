@@ -29,6 +29,7 @@ var _ = Resource("hello", func() {
 
 	Action("answer", func() {
 		Routing(POST("/answer"))
+		DefaultMedia(Result)
 		Description("answer words and show in response")
 		Payload(Message)
 		Response(OK)
@@ -43,4 +44,16 @@ var Message = Type("message", func() {
 		Attribute("content", String, "content of message")
 	})
 	Required("info")
+})
+
+var Result = MediaType("vnd.application/goa.results", func() {
+	Description("The results for answer")
+	Attributes(func() {
+		Attribute("message", String, "results value")
+		Attribute("name", String, "user")
+	})
+
+	View("default", func() {
+		Attribute("message", String, "message")
+	})
 })
